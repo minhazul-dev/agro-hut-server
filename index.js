@@ -5,7 +5,8 @@ require('dotenv').config()
 const objectID = require('mongodb').ObjectID
 const { MongoClient } = require('mongodb');
 // console.log(process.env.DB_USER);
-const port = 5000
+// const port = 5000
+const port = process.env.PORT || 5000
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
@@ -189,6 +190,4 @@ client.connect(err => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+app.listen((process.env.PORT || port))
