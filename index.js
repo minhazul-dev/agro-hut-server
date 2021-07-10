@@ -183,7 +183,7 @@ client.connect(err => {
 
     ////filtering admin
     app.get('/isAdmin', (req, res) => {
-        const email = req.query.email
+        // const email = req.query.email
         const bearer = req.headers.authorization;
         if (bearer && bearer.startsWith('Bearer ')) {
             const idToken = bearer.split(' ')[1];
