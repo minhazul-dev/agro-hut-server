@@ -7,7 +7,7 @@ const { MongoClient } = require('mongodb');
 const admin = require('firebase-admin');
 
 
-var serviceAccount = require("./New folder/agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
+var serviceAccount = require("./agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
