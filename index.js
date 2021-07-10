@@ -192,7 +192,7 @@ client.connect(err => {
                 .then((decodedToken) => {
                     const tokenEmail = decodedToken.email;
                     if (tokenEmail == req.query.email) {
-                        adminCollection.find({ email: email })
+                        adminCollection.find({ email: req.query.email })
                             .toArray((err, documents) => {
                                 console.log(documents);
                                 res.send(documents.length > 0)
