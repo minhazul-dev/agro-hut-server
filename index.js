@@ -4,14 +4,14 @@ const cors = require('cors')
 require('dotenv').config()
 const objectID = require('mongodb').ObjectID
 const { MongoClient } = require('mongodb');
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 
 
-var serviceAccount = require("./New folder/agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
+// var serviceAccount = require("./New folder/agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)
+// });
 
 // console.log(process.env.DB_USER);
 // const port = 5000
@@ -183,46 +183,46 @@ client.connect(err => {
 
     ////filtering admin
 
-    // app.get('/isAdmin', (req, res) => {
-    //     const email = req.query.email
-    //     adminCollection.find({ email: email })
-    //         .toArray((err, documents) => {
-    //             console.log(documents);
-    //             res.send(documents.length > 0)
-    //         })
-
-    // })
     app.get('/isAdmin', (req, res) => {
         const email = req.query.email
-        const bearer = req.headers.authorization;
-        if (bearer && bearer.startsWith('Bearer ')) {
-            const idToken = bearer.split(' ')[1];
-            console.log({ idToken });
-            admin.auth().verifyIdToken(idToken)
-                .then((decodedToken) => {
-                    const tokenEmail = decodedToken.email;
-                    if (tokenEmail == req.query.email) {
-                        adminCollection.find({ email: req.query.email })
-                            .toArray((err, documents) => {
-                                console.log(documents);
-                                res.send(documents.length > 0)
-                            })
-
-                    }
-                    else {
-                        res.status(401).send('Unauthorized Access');
-                    }
-                })
-                .catch((error) => {
-                    res.status(401).send('Unauthorized Access');
-                });
-        }
-        else {
-            res.status(401).send('Unauthorized Access');
-        }
-
+        adminCollection.find({ email: email })
+            .toArray((err, documents) => {
+                console.log(documents);
+                res.send(documents.length > 0)
+            })
 
     })
+    // app.get('/isAdmin', (req, res) => {
+    //     const email = req.query.email
+    //     const bearer = req.headers.authorization;
+    //     if (bearer && bearer.startsWith('Bearer ')) {
+    //         const idToken = bearer.split(' ')[1];
+    //         console.log({ idToken });
+    //         admin.auth().verifyIdToken(idToken)
+    //             .then((decodedToken) => {
+    //                 const tokenEmail = decodedToken.email;
+    //                 if (tokenEmail == req.query.email) {
+    //                     adminCollection.find({ email: req.query.email })
+    //                         .toArray((err, documents) => {
+    //                             console.log(documents);
+    //                             res.send(documents.length > 0)
+    //                         })
+
+    //                 }
+    //                 else {
+    //                     res.status(401).send('Unauthorized Access');
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 res.status(401).send('Unauthorized Access');
+    //             });
+    //     }
+    //     else {
+    //         res.status(401).send('Unauthorized Access');
+    //     }
+
+
+    // })
 
 
 
