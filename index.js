@@ -4,14 +4,14 @@ const cors = require('cors')
 require('dotenv').config()
 const objectID = require('mongodb').ObjectID
 const { MongoClient } = require('mongodb');
-// const admin = require('firebase-admin');
+const admin = require('firebase-admin');
 
 
-// var serviceAccount = require("./New folder/agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
+var serviceAccount = require("./New folder/agro-hut-firebase-adminsdk-zm39w-6b73397cd9.json");
 
-// admin.initializeApp({
-//     credential: admin.credential.cert(serviceAccount)
-// });
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 // console.log(process.env.DB_USER);
 // const port = 5000
