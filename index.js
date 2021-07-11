@@ -183,46 +183,46 @@ client.connect(err => {
 
     ////filtering admin
 
-    app.get('/isAdmin', (req, res) => {
-        const email = req.query.email
-        adminCollection.find({ email: email })
-            .toArray((err, documents) => {
-                console.log(documents);
-                res.send(documents.length > 0)
-            })
-
-    })
     // app.get('/isAdmin', (req, res) => {
     //     const email = req.query.email
-    //     const bearer = req.headers.authorization;
-    //     if (bearer && bearer.startsWith('Bearer ')) {
-    //         const idToken = bearer.split(' ')[1];
-    //         console.log({ idToken });
-    //         admin.auth().verifyIdToken(idToken)
-    //             .then((decodedToken) => {
-    //                 const tokenEmail = decodedToken.email;
-    //                 if (tokenEmail == req.query.email) {
-    //                     adminCollection.find({ email: req.query.email })
-    //                         .toArray((err, documents) => {
-    //                             console.log(documents);
-    //                             res.send(documents.length > 0)
-    //                         })
-
-    //                 }
-    //                 else {
-    //                     res.status(401).send('Unauthorized Access');
-    //                 }
-    //             })
-    //             .catch((error) => {
-    //                 res.status(401).send('Unauthorized Access');
-    //             });
-    //     }
-    //     else {
-    //         res.status(401).send('Unauthorized Access');
-    //     }
-
+    //     adminCollection.find({ email: email })
+    //         .toArray((err, documents) => {
+    //             console.log(documents);
+    //             res.send(documents.length > 0)
+    //         })
 
     // })
+    app.get('/isAdmin', (req, res) => {
+        const email = req.query.email
+        const bearer = req.headers.authorization;
+        if (bearer && bearer.startsWith('Bearer ')) {
+            const idToken = bearer.split(' ')[1];
+            console.log({ idToken });
+            admin.auth().verifyIdToken(idToken)
+                .then((decodedToken) => {
+                    const tokenEmail = decodedToken.email;
+                    if (tokenEmail == req.query.email) {
+                        adminCollection.find({ email: req.query.email })
+                            .toArray((err, documents) => {
+                                console.log(documents);
+                                res.send(documents.length > 0)
+                            })
+
+                    }
+                    else {
+                        res.status(401).send('Unauthorized Access');
+                    }
+                })
+                .catch((error) => {
+                    res.status(401).send('Unauthorized Access');
+                });
+        }
+        else {
+            res.status(401).send('Unauthorized Access');
+        }
+
+
+    })
 
 
 
